@@ -5,19 +5,16 @@ const isAdminRoute = createRouteMatcher(["/dashboard(.*)"]);
 const isPublicRoute = createRouteMatcher([
   "/",
   "/api/webhooks/clerk",
-  "/api/oauth/exchange",
   "/sign-in(.*)", 
-  "/sign-up(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId, sessionClaims } = await auth();
   const isAdmin = sessionClaims?.metadata?.role === "admin";
 
- 
   if (isPublicRoute(req)) {
     
-    if (userId && isAdmin && req.nextUrl.pathname === "/") {
+    if (userId && req.nextUrl.pathname === "/") {
       const dashboardUrl = new URL("/dashboard", req.url);
       return NextResponse.redirect(dashboardUrl);
     }
@@ -31,7 +28,7 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   if (isAdminRoute(req)) {
-    if (!isAdmin) {
+    if (!userId) {
       const homeUrl = new URL("/", req.url);
       return NextResponse.redirect(homeUrl);
     }

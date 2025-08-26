@@ -25,25 +25,11 @@ export const dataSidebar = [
     icon: PanelsTopLeft,
     label: "Dashboard",
   },
-  
 
   {
     href: "/dashboard/events",
     icon: Calendar,
     label: "Eventos",
-    subItems: [
-      { label: "Todos los eventos", href: "/dashboard/events", icon: Calendar },
-      {
-        label: "Crear evento",
-        href: "/dashboard/events/create-events",
-        icon: Calendar,
-      },
-    ],
-  },
-  {
-    href: "/dashboard/bookins",
-    icon: Calendar,
-    label: "Bookins",
   },
 
   {
